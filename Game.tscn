@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Game.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 512, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 512, 10 )
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Ball" parent="." instance=ExtResource( 1 )]
+position = Vector2( 512, 550 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+
+[node name="RestartTimer" type="Timer" parent="."]
+
+[node name="LeftRect" type="ColorRect" parent="."]
+margin_right = 160.0
+margin_bottom = 600.0
+color = Color( 0.137255, 0.219608, 0.337255, 1 )
+
+[node name="PlayerLivesLabel" type="Label" parent="."]
+margin_left = 45.0
+margin_top = 20.0
+margin_right = 121.0
+margin_bottom = 34.0
+text = "Player Lives"
+align = 1
+
+[node name="Livesvar" type="Label" parent="."]
+margin_left = 65.0
+margin_top = 45.0
+margin_right = 105.0
+margin_bottom = 59.0
+align = 1
+
+[node name="RightRect" type="ColorRect" parent="."]
+margin_left = 864.0
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.137255, 0.219608, 0.337255, 1 )
+
+[node name="PointsLabel" type="Label" parent="."]
+margin_left = 924.0
+margin_top = 25.0
+margin_right = 964.0
+margin_bottom = 39.0
+text = "Points"
+align = 1
+
+[node name="Pointsvar" type="Label" parent="."]
+margin_left = 925.0
+margin_top = 50.0
+margin_right = 965.0
+margin_bottom = 64.0
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+position = Vector2( 512, -10 )
+shape = SubResource( 3 )
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2( 1024, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2( -150, 300 )
+shape = SubResource( 2 )
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2( 150, 300 )
+shape = SubResource( 2 )
+
+[node name="Deadzone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deadzone"]
+position = Vector2( 512, 610 )
+shape = SubResource( 1 )
+
+[connection signal="timeout" from="RestartTimer" to="Ball" method="_on_RestartTimer_timeout"]
+[connection signal="body_entered" from="Deadzone" to="." method="_on_Deadzone_body_entered"]

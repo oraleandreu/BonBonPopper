@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Welcome.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+margin_left = 462.0
+margin_top = 150.0
+margin_right = 502.0
+margin_bottom = 190.0
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 100.0
+margin_bottom = 50.0
+text = "Welcome to
+Bonbon Popper"
+align = 1
+valign = 1
+
+[node name="Button" type="Button" parent="."]
+margin_left = 30.0
+margin_top = 200.0
+margin_right = 71.0
+margin_bottom = 220.0
+text = "Start"
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
